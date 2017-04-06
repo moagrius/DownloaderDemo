@@ -116,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
     long start;
     long elapsed;
     for (String url : DOWNLOAD_URLS) {
+      // make it unique
+      url = url + "?" + System.currentTimeMillis();
       // first, google
       reportGoogleResults("Starting " + url);
       reportGoogleResults("at " + getMoment());
@@ -174,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
   private void downloadUrlWithGoogle(String url) throws IOException {
     MediaHttpDownloader downloader = new MediaHttpDownloader(mHttpTransport, null);
     FileOutputStream fileOutputStream = new FileOutputStream(mFile);
-    GenericUrl genericUrl = new GenericUrl(url + "?" + System.currentTimeMillis());
+    GenericUrl genericUrl = new GenericUrl(url);
     downloader.download(genericUrl, fileOutputStream);
   }
 
@@ -182,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
     Downloader downloader = new Downloader();
     FileOutputStream fileOutputStream = new FileOutputStream(mFile);
     downloader.setOutputStream(fileOutputStream);
-    downloader.setLocation(url + "?" + System.currentTimeMillis());
+    downloader.setLocation(url);
     downloader.download();
   }
 
